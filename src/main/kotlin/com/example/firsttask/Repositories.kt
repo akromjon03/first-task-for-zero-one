@@ -71,24 +71,27 @@ interface UserRepository : BaseRepository<User> {
 }
 
 @Repository
-interface CategoryRepository : BaseRepository<Category>
+interface CategoryRepository : BaseRepository<Category> {
+    fun findAllByOrderByOrderAsc(pageable: Pageable): Page<Category>
+}
 
 @Repository
 interface ProductRepository : BaseRepository<Product>
 
 @Repository
 interface UserPaymentTransactionRepository : BaseRepository<UserPaymentTransaction> {
-    fun findByUserIdAndDeletedFalse(userId:Long, pageable: Pageable):Page<UserPaymentTransaction>?
+    fun findByUserIdAndDeletedFalse(userId: Long, pageable: Pageable): Page<UserPaymentTransaction>?
 }
 
 @Repository
 interface TransactionItemRepository : BaseRepository<TransactionItem>
 
 @Repository
-interface TransactionRepository : BaseRepository<Transaction>{
+interface TransactionRepository : BaseRepository<Transaction> {
 
 
-    @Query("""
+    @Query(
+        """
     SELECT 
         u.userName AS userName, 
         p.name AS productName, 
@@ -100,11 +103,13 @@ interface TransactionRepository : BaseRepository<Transaction>{
     JOIN transactions t ON ti.transaction.id = t.id
     JOIN users u ON t.user.id = u.id
     WHERE t.user.id = :userId
-""")
+"""
+    )
     fun findUserPurchaseHistory(@Param("userId") userId: Long, pageable: Pageable): Page<UserProductDto>
 
 
-    @Query("""
+    @Query(
+        """
         SELECT 
             u.userName AS userName, 
             p.name AS productName, 
@@ -116,7 +121,8 @@ interface TransactionRepository : BaseRepository<Transaction>{
     JOIN transactions t ON ti.transaction.id = t.id
     JOIN users u ON t.user.id = u.id
     WHERE t.id = :transactionId
-    """)
+    """
+    )
     fun findTransactionProducts(@Param("transactionId") transactionId: Long, pageable: Pageable): Page<UserProductDto>
 
 

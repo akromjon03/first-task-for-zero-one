@@ -158,7 +158,7 @@ class CategoryServiceImpl(
     }
 
     override fun getAll(pageable: Pageable): Page<CategoryDto> {
-        return repository.findAllNotDeletedForPageable(pageable).map {
+        return repository.findAllByOrderByOrderAsc(pageable).map {
             CategoryDto.toCategoryDto(it)
         }
     }
