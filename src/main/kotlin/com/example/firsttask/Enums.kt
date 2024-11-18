@@ -1,0 +1,19 @@
+package com.example.firsttask
+
+enum class UserRole{
+    USER,
+    ADMIN
+}
+
+enum class ErrorCodes(val code: Int){
+    USER_NOT_FOUND(100),
+    USER_ALREADY_EXISTS(101),
+    PAYMENT_TRANSACTION_NOT_FOUND(200),
+    CATEGORY_NOT_FOUND(300),
+    PRODUCT_NOT_FOUND(400),
+    TRANSACTION_NOT_FOUND(500),
+    NOT_ENOUGH_BALANCE(501),
+    NOT_ENOUGH_PRODUCT(502),
+    TRANSACTION_ITEM_NOT_FOUND(600)
+
+}
